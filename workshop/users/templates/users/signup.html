@@ -1,0 +1,53 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}">
+    </head>
+    
+    <form action="" method="POST" class='signupForm' >
+        {% csrf_token %} 
+        <h1>
+            Sign Up
+        </h1>
+        First name:
+        <br>
+        <input type="text" name="firstname">    
+        <br>
+
+        Last name:
+        <br>
+        <input type="text" name="lastname">
+        <br>
+
+        Email:
+        <br>
+        <input type="text" name="email">
+        <br>
+        
+
+        Username:
+        <br>
+        <input type="text" name="username">
+        <br>
+
+
+        Password:
+        <br>
+        <input type="password" name="password">
+
+        {% if error %}
+        <p>
+            {{error}}
+        </p>
+        {% endif %}
+        <br />
+        {% if add %}
+        <span>
+            {{add}}
+        </span>
+        {% endif %}
+        <br />
+        
+        <input type="submit" value="ADD">
+    </form> 
+</html>
