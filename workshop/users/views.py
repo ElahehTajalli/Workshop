@@ -9,6 +9,7 @@ import uuid
 from users.models import Profile
 from django.template.loader import render_to_string
 from tasks import send_mail
+from django.contrib.sites.shortcuts import get_current_site
 
 
 
@@ -41,12 +42,14 @@ def signup(request):
                 status=400
             )
         u.save()
-        p.save()    
+        p.save()
+        current_site = get_current_site(request)  
         message = render_to_string('users/verify.html', {
                 'token': p.verify_id,
+                'domain': current_site.domain,
             })
         send_mail.delay('Verify Email', message, u.email)
-        login(request, u)    
+        # login(request, u)    
         return render(
             request,
             'users/signup.html',
